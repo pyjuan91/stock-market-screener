@@ -1,4 +1,4 @@
-# Python Stock Analyzer
+# stock-market-screener
 
 A Python tool to analyze US stock market data, calculate, and visualize technical indicators. This project is built using modern Python development tools, including Poetry for dependency management.
 
@@ -15,8 +15,8 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 1.  **Clone the repository:**
     ```sh
-    git clone YOUR_REPOSITORY_URL_HERE
-    cd your-repository-name
+    git clone https://github.com/pyjuan91/stock-market-screener.git
+    cd stock-market-screener
     ```
 
 2.  **Install dependencies:**

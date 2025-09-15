@@ -6,12 +6,13 @@ authors = [
     {name = "Po-Yu Juan",email = "pyjuan91@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.13 <4.0"
 dependencies = [
     "yfinance (>=0.2.65,<0.3.0)",
     "pandas (>=2.3.2,<3.0.0)",
     "pandas-ta (>=0.4.71b0,<0.5.0)",
-    "mplfinance (>=0.12.10b0,<0.13.0)"
+    "mplfinance (>=0.12.10b0,<0.13.0)",
+    "loguru (>=0.7.3,<0.8.0)"
 ]
 
 

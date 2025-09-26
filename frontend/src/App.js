@@ -30,9 +30,12 @@ import {
 } from 'recharts';
 
 // Define the backend API URLs
+// Use environment variable for production, fallback to localhost for development
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
 const API_SCAN_URL = `${API_BASE_URL}/api/scan`;
 const API_HISTORY_URL = `${API_BASE_URL}/api/history`;
+
+console.log('API_BASE_URL:', API_BASE_URL); // Debug log for deployment
 
 // --- Helper Functions for Chart Formatting ---
 const currencyFormatter = (value) => `${value.toFixed(2)}`;

@@ -13,10 +13,24 @@ app = FastAPI(
 )
 
 # --- CORS Middleware Setup ---
-# This allows the frontend (running on localhost:3000) to communicate with the backend.
+# This allows the frontend to communicate with the backend in both development and production.
+import os
+
+# Allow multiple origins for development and production
 origins = [
-    "http://localhost:3000",
+    "http://localhost:3000",  # Local development
+    "https://localhost:3000",  # Local development with HTTPS
 ]
+
+# Add production frontend URL from environment variable
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+if FRONTEND_URL:
+    origins.append(FRONTEND_URL)
+
+# For Render deployment, also allow the common patterns
+RENDER_FRONTEND_URL = os.getenv("RENDER_EXTERNAL_URL")
+if RENDER_FRONTEND_URL:
+    origins.append(RENDER_FRONTEND_URL)
 
 app.add_middleware(
     CORSMiddleware,

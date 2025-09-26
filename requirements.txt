@@ -3,3 +3,5 @@ pandas
 pandas-ta
 loguru
 fastapi
+gunicorn
+uvicorn[standard]

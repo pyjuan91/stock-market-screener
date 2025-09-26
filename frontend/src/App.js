@@ -30,8 +30,9 @@ import {
 } from 'recharts';
 
 // Define the backend API URLs
-const API_SCAN_URL = 'http://127.0.0.1:8000/api/scan';
-const API_HISTORY_URL = 'http://127.0.0.1:8000/api/history';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
+const API_SCAN_URL = `${API_BASE_URL}/api/scan`;
+const API_HISTORY_URL = `${API_BASE_URL}/api/history`;
 
 // --- Helper Functions for Chart Formatting ---
 const currencyFormatter = (value) => `${value.toFixed(2)}`;

@@ -136,6 +136,11 @@ function App() {
             label="Tickers (e.g., AAPL, GOOG, MSFT)"
             value={tickers}
             onChange={(e) => setTickers(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter' && !loading) {
+                handleAnalysisClick();
+              }
+            }}
             disabled={loading}
           />
           <Button variant="contained" color="primary" onClick={handleAnalysisClick} disabled={loading} style={{ marginLeft: '1rem', height: '56px', width: '120px' }}>

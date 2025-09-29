@@ -65,6 +65,7 @@ A full-stack stock market analysis tool with Python backend and React frontend t
 - Configured for production deployment on Render
 - Fixed react-scripts version in package.json (changed from ^0.0.0 to 5.0.1)
 - Frontend has 9 npm vulnerabilities (safe to ignore - all in dev dependencies: nth-check, postcss, webpack-dev-server)
+- Reverted UI changes back to working Material-UI interface
 
 ## Development Notes
 - Uses loguru for logging

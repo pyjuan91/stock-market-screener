@@ -1,233 +1,191 @@
 # Stock Market Screener
 
-A modern, full-stack web application for analyzing US stock market data with real-time technical indicators and interactive visualizations. Built with a Python FastAPI backend and React frontend, featuring a clean Apple-inspired design.
+A full-stack web app for analyzing stock market data with technical indicators and interactive charts. Built with Python FastAPI backend and React frontend, featuring a clean Apple-inspired design.
 
-## 🖼️ Screenshots
+## Screenshots
 
 <!-- Add your screenshots here -->
 *Screenshots will be added soon*
 
-## ✨ Features
+## What It Does
 
-### 📊 Technical Analysis
-- **Real-time stock data** - Fetch current stock prices and historical data
-- **Technical indicators** - RSI, MACD, Moving Averages (MA20, MA50)
-- **Interactive charts** - Historical price charts with technical overlays
-- **Multi-stock analysis** - Analyze multiple stocks simultaneously
+### Stock Analysis
+- Fetches real-time stock data and historical information
+- Calculates technical indicators: RSI, MACD, and moving averages (MA20, MA50)
+- Supports analyzing multiple stocks at once
+- Interactive charts with technical overlays
 
-### 🎨 Modern UI/UX
-- **Apple-inspired design** - Clean, minimalist interface with Apple's design principles
-- **Responsive layout** - Works seamlessly on desktop and mobile devices
-- **Real-time feedback** - Loading states and interactive hover effects
-- **Keyboard shortcuts** - Press Enter to trigger analysis
+### User Experience
+- Clean, Apple-inspired interface that's easy on the eyes
+- Works well on both desktop and mobile
+- Press Enter to trigger analysis (because who doesn't love keyboard shortcuts)
+- Real-time loading states so you know something's happening
 
-### 🚀 Smart Deployment Features
-- **Timeout handling** - Intelligent detection of sleeping backend services
-- **Cache fallback** - Cached demo data for popular stocks when backend is unavailable
-- **Render.com optimization** - Built-in handling for cold start delays on Render.com
+### Smart Backend Handling
+- Detects when Render.com backend is sleeping and shows a helpful dialog
+- Falls back to cached demo data for popular stocks when backend is unavailable
+- Handles timeout scenarios gracefully for better demo experience
 
-### 🛠️ Technical Features
-- **FastAPI backend** - High-performance async Python API
-- **React frontend** - Modern React with Material-UI components
-- **CORS enabled** - Properly configured for cross-origin requests
-- **Environment-based configuration** - Seamless development to production deployment
+### Technical Stuff
+- FastAPI backend that's pretty fast
+- React frontend with Material-UI components
+- CORS properly configured
+- Environment-based config for easy deployment
 
-## 🚀 Live Demo
+## Live Demo
 
-The application is deployed on Render.com and available at: [Your Render URL Here]
+The app is deployed on Render.com: [Your Render URL Here]
 
-*Note: The backend may take 30-60 seconds to wake up on first request due to Render's free tier limitations. The app includes intelligent cache fallback for a smooth demo experience.*
+*Note: If it's the first request in a while, the backend might take 30-60 seconds to wake up. That's just how Render's free tier works. The app handles this with cached data so demos still look smooth.*
 
-## 🛠️ Technology Stack
+## Tech Stack
 
-### Backend
-- **Python 3.8+**
-- **FastAPI** - Modern, fast web framework
-- **Poetry** - Dependency management
-- **yfinance** - Stock data fetching
-- **pandas** - Data manipulation
-- **TA-Lib** - Technical analysis library
-
-### Frontend
-- **React 19+**
-- **Material-UI** - React component library
-- **Recharts** - Chart visualization library
-- **Axios** - HTTP client
-
-## 📋 Prerequisites
-
+**Backend:**
 - Python 3.8+
-- Node.js 16+
-- Poetry (see [official installation instructions](https://python-poetry.org/docs/#installation))
-- npm or yarn
+- FastAPI for the web framework
+- Poetry for dependency management
+- yfinance for stock data
+- pandas for data manipulation
+- TA-Lib for technical analysis
 
-## 🔧 Local Development Setup
+**Frontend:**
+- React 19+
+- Material-UI for components
+- Recharts for charts
+- Axios for API calls
+
+## Getting Started
+
+You'll need Python 3.8+, Node.js 16+, and Poetry installed.
 
 ### Backend Setup
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/pyjuan91/stock-market-screener.git
-   cd stock-market-screener
-   ```
+Clone the repo and get the backend running:
 
-2. **Install Python dependencies:**
-   ```bash
-   poetry install
-   ```
+```bash
+git clone https://github.com/pyjuan91/stock-market-screener.git
+cd stock-market-screener
+poetry install
+poetry shell
+python api.py
+```
 
-3. **Activate the virtual environment:**
-   ```bash
-   poetry shell
-   ```
-
-4. **Start the backend server:**
-   ```bash
-   cd backend
-   uvicorn main:app --reload --host 0.0.0.0 --port 8000
-   ```
-
-   The API will be available at `http://localhost:8000`
-   API documentation: `http://localhost:8000/docs`
+Backend will be at `http://localhost:8000` and API docs at `http://localhost:8000/docs`
 
 ### Frontend Setup
 
-1. **Navigate to frontend directory:**
-   ```bash
-   cd frontend
-   ```
+In a new terminal, get the frontend going:
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server:**
-   ```bash
-   npm start
-   ```
-
-   The frontend will be available at `http://localhost:3000`
-
-## 🏗️ Build for Production
-
-### Backend Build
 ```bash
-cd backend
+cd frontend
+npm install
+npm start
+```
+
+Frontend will be at `http://localhost:3000`
+
+## Building for Production
+
+**Backend:**
+```bash
 poetry build
 ```
 
-### Frontend Build
+**Frontend:**
 ```bash
 cd frontend
 npm run build
 ```
 
-## 🌐 Deployment
+## Deploying to Render
 
-### Render.com Deployment
+This thing is set up to work well with Render.com:
 
-This project is optimized for deployment on Render.com:
+**Backend deployment:**
+- Connect your GitHub repo to Render
+- Choose "Web Service"
+- Build command: `poetry install`
+- Start command: `python api.py`
 
-1. **Backend deployment:**
-   - Connect your GitHub repository to Render
-   - Choose "Web Service"
-   - Set build command: `poetry install`
-   - Set start command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-   - Set environment variables as needed
-
-2. **Frontend deployment:**
-   - Choose "Static Site"
-   - Set build command: `cd frontend && npm install && npm run build`
-   - Set publish directory: `frontend/build`
-   - Set environment variable: `REACT_APP_API_URL=https://your-backend-url.onrender.com`
+**Frontend deployment:**
+- Choose "Static Site"
+- Build command: `cd frontend && npm install && npm run build`
+- Publish directory: `frontend/build`
+- Environment variable: `REACT_APP_API_URL=https://your-backend-url.onrender.com`
 
 ### Environment Variables
 
-#### Backend
-- `PORT` - Server port (automatically set by Render)
+**Backend:**
+- `PORT` - Server port (Render sets this automatically)
 - `CORS_ORIGINS` - Allowed CORS origins
 
-#### Frontend
-- `REACT_APP_API_URL` - Backend API URL for production
+**Frontend:**
+- `REACT_APP_API_URL` - Your backend URL for production
 
-## 📝 API Endpoints
+## API Endpoints
 
-### GET `/`
-Health check endpoint
+**GET /** - Basic health check
 
-### POST `/api/scan`
-Analyze stocks with technical indicators
+**POST /api/scan** - Analyze stocks
 ```json
 {
   "tickers": ["AAPL", "GOOG", "MSFT"]
 }
 ```
 
-### GET `/api/history/{ticker}`
-Get historical data for a specific stock
+**GET /api/history/{ticker}** - Get historical data for a stock
 
-## 🎯 Usage
+## How to Use
 
-1. **Enter stock tickers** - Input one or more stock symbols (e.g., AAPL, GOOG, MSFT)
-2. **Click Analyze or press Enter** - Trigger the analysis
-3. **View results** - See technical indicators in a clean table format
-4. **Explore charts** - Click on any stock row to view detailed historical charts
-5. **Handle timeouts** - If backend is sleeping, choose to wait or use cached demo data
+1. Type in some stock symbols (like AAPL, GOOG, MSFT)
+2. Hit Analyze or just press Enter
+3. Check out the results in the table
+4. Click any row to see detailed charts
+5. If the backend is sleeping, you can wait or use cached demo data
 
-## 🔮 Future Work
+## What's Next
 
-### 📈 Enhanced Analytics
-- [ ] Additional technical indicators (Bollinger Bands, Stochastic Oscillator)
-- [ ] Portfolio tracking and performance analysis
-- [ ] Real-time price updates with WebSocket integration
-- [ ] Price alerts and notifications
+### More Analytics
+- Additional technical indicators (Bollinger Bands, Stochastic Oscillator)
+- Portfolio tracking and performance analysis
+- Real-time price updates with WebSocket
+- Price alerts and notifications
 
-### 🎨 UI/UX Improvements
-- [ ] Dark mode toggle
-- [ ] Customizable chart themes
-- [ ] Advanced filtering and sorting options
-- [ ] Stock comparison tools
+### UI Improvements
+- Dark mode toggle
+- Customizable chart themes
+- Better filtering and sorting
+- Stock comparison tools
 
-### 📊 Data & Features
-- [ ] Fundamental analysis metrics (P/E ratio, market cap, etc.)
-- [ ] News sentiment analysis integration
-- [ ] Export functionality (PDF reports, CSV data)
-- [ ] Historical backtesting capabilities
+### Data & Features
+- Fundamental analysis (P/E ratio, market cap, etc.)
+- News sentiment analysis
+- Export functionality (PDF reports, CSV data)
+- Historical backtesting
 
-### 🔧 Technical Enhancements
-- [ ] Database integration for data persistence
-- [ ] User authentication and personalized watchlists
-- [ ] API rate limiting and caching
-- [ ] Automated testing suite
-- [ ] Docker containerization
+### Technical Enhancements
+- Database integration for persistence
+- User authentication and watchlists
+- API rate limiting and caching
+- Proper testing suite
+- Docker containerization
 
-### 🌐 Deployment & Performance
-- [ ] CDN integration for faster loading
-- [ ] Server-side rendering (SSR) support
-- [ ] Progressive Web App (PWA) features
-- [ ] Advanced monitoring and analytics
+### Performance & Deployment
+- CDN integration
+- Server-side rendering support
+- Progressive Web App features
+- Better monitoring and analytics
 
-## 🤝 Contributing
+## Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+Feel free to fork the repo and submit pull requests. The usual GitHub workflow applies:
+
+1. Fork it
+2. Create your feature branch (`git checkout -b feature/cool-feature`)
+3. Commit your changes (`git commit -m 'Add cool feature'`)
+4. Push to the branch (`git push origin feature/cool-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [yfinance](https://github.com/ranaroussi/yfinance) for stock data access
-- [FastAPI](https://fastapi.tiangolo.com/) for the excellent Python web framework
-- [Material-UI](https://mui.com/) for beautiful React components
-- [Recharts](https://recharts.org/) for interactive chart components
-- [Render.com](https://render.com/) for reliable hosting platform
-
----
-
-⭐ **Star this repository if you find it helpful!**
+MIT License - do whatever you want with it.

@@ -1,6 +1,6 @@
 # Claude Project Notes - Stock Market Screener
 
-**Last Updated:** 2025-09-28 22:55:00
+**Last Updated:** 2025-09-28 23:05:00
 **Project Owner:** Po-Yu Juan (pyjuan91@gmail.com)
 **Deployment:** Render.com (production)
 
@@ -63,6 +63,8 @@ A full-stack stock market analysis tool with Python backend and React frontend t
 - Latest commit: c7881d1 - CORS and API URL config for Render deployment
 - Removed project_notes.md file
 - Configured for production deployment on Render
+- Fixed react-scripts version in package.json (changed from ^0.0.0 to 5.0.1)
+- Frontend has 9 npm vulnerabilities (safe to ignore - all in dev dependencies: nth-check, postcss, webpack-dev-server)
 
 ## Development Notes
 - Uses loguru for logging

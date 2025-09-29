@@ -22,6 +22,11 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  ThemeProvider,
+  createTheme,
+  Card,
+  CardContent,
+  Chip,
 } from '@mui/material';
 import {
   LineChart,
@@ -41,6 +46,146 @@ const API_SCAN_URL = `${API_BASE_URL}/api/scan`;
 const API_HISTORY_URL = `${API_BASE_URL}/api/history`;
 
 console.log('API_BASE_URL:', API_BASE_URL); // Debug log for deployment
+
+// --- Apple-style Theme ---
+const appleTheme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#007AFF', // Apple blue
+      light: '#4DA6FF',
+      dark: '#0056CC',
+    },
+    secondary: {
+      main: '#FF9500', // Apple orange
+      light: '#FFB84D',
+      dark: '#CC7700',
+    },
+    background: {
+      default: '#F2F2F7', // Apple light gray background
+      paper: '#FFFFFF',
+    },
+    text: {
+      primary: '#1D1D1F', // Apple dark text
+      secondary: '#86868B', // Apple gray text
+    },
+    error: {
+      main: '#FF3B30', // Apple red
+    },
+    success: {
+      main: '#34C759', // Apple green
+    },
+    divider: '#D1D1D6',
+  },
+  typography: {
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    h4: {
+      fontWeight: 700,
+      fontSize: '2.125rem',
+      lineHeight: 1.2,
+      letterSpacing: '-0.02em',
+      color: '#1D1D1F',
+    },
+    h5: {
+      fontWeight: 600,
+      fontSize: '1.5rem',
+      lineHeight: 1.3,
+      letterSpacing: '-0.01em',
+      color: '#1D1D1F',
+    },
+    h6: {
+      fontWeight: 600,
+      fontSize: '1.25rem',
+      lineHeight: 1.4,
+      color: '#1D1D1F',
+    },
+    body1: {
+      fontSize: '1rem',
+      lineHeight: 1.5,
+      color: '#1D1D1F',
+    },
+    body2: {
+      fontSize: '0.875rem',
+      lineHeight: 1.43,
+      color: '#86868B',
+    },
+  },
+  shape: {
+    borderRadius: 12, // Apple's rounded corners
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          fontWeight: 600,
+          borderRadius: 8,
+          padding: '10px 20px',
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+          },
+        },
+        contained: {
+          background: 'linear-gradient(135deg, #007AFF 0%, #0056CC 100%)',
+          '&:hover': {
+            background: 'linear-gradient(135deg, #0056CC 0%, #004499 100%)',
+          },
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            borderRadius: 8,
+            backgroundColor: '#FFFFFF',
+            '& fieldset': {
+              borderColor: '#D1D1D6',
+            },
+            '&:hover fieldset': {
+              borderColor: '#007AFF',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#007AFF',
+              borderWidth: 2,
+            },
+          },
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        head: {
+          backgroundColor: '#F2F2F7',
+          fontWeight: 600,
+          color: '#1D1D1F',
+          borderBottom: '1px solid #D1D1D6',
+        },
+        body: {
+          borderBottom: '1px solid #F2F2F7',
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#FFFFFF',
+          color: '#1D1D1F',
+          boxShadow: '0 1px 0 rgba(0, 0, 0, 0.1)',
+        },
+      },
+    },
+  },
+});
 
 // --- Cache Data for Demo ---
 const CACHE_DATA = {
@@ -176,152 +321,273 @@ function App() {
   const chartMargin = { top: 20, right: 30, left: 30, bottom: 10 };
 
   return (
-    <Fragment>
+    <ThemeProvider theme={appleTheme}>
       <CssBaseline />
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div">Stock Market Screener</Typography>
+      <AppBar position="static" elevation={0}>
+        <Toolbar sx={{ minHeight: '80px !important' }}>
+          <Typography variant="h6" component="div" sx={{ fontWeight: 700, fontSize: '1.375rem' }}>
+            Stock Market Screener
+          </Typography>
         </Toolbar>
       </AppBar>
 
-      <Container style={{ marginTop: '2rem', paddingBottom: '4rem' }}>
+      <Container maxWidth="lg" sx={{ mt: 6, pb: 8 }}>
         {/* Input Section */}
-        <Typography variant="h4" gutterBottom>Enter Stock Tickers</Typography>
-        <Typography variant="body1" color="textSecondary" gutterBottom>Enter one or more ticker symbols, separated by commas.</Typography>
-        <Box display="flex" alignItems="center" marginTop="1.5rem">
-          <TextField
-            fullWidth
-            variant="outlined"
-            label="Tickers (e.g., AAPL, GOOG, MSFT)"
-            value={tickers}
-            onChange={(e) => setTickers(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter' && !loading) {
-                handleAnalysisClick();
-              }
-            }}
-            disabled={loading}
-          />
-          <Button variant="contained" color="primary" onClick={handleAnalysisClick} disabled={loading} style={{ marginLeft: '1rem', height: '56px', width: '120px' }}>
-            {loading ? <CircularProgress size={24} color="inherit" /> : 'Analyze'}
-          </Button>
-        </Box>
+        <Card sx={{ mb: 4, p: 4 }}>
+          <CardContent sx={{ p: 0, '&:last-child': { pb: 0 } }}>
+            <Typography variant="h4" gutterBottom sx={{ mb: 1 }}>
+              Enter Stock Tickers
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+              Enter one or more ticker symbols, separated by commas.
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
+              <TextField
+                fullWidth
+                variant="outlined"
+                placeholder="AAPL, GOOG, MSFT"
+                value={tickers}
+                onChange={(e) => setTickers(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && !loading) {
+                    handleAnalysisClick();
+                  }
+                }}
+                disabled={loading}
+                sx={{ flex: 1 }}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleAnalysisClick}
+                disabled={loading}
+                sx={{
+                  minWidth: 120,
+                  height: 56,
+                  fontSize: '1rem',
+                  fontWeight: 600
+                }}
+              >
+                {loading ? <CircularProgress size={24} color="inherit" /> : 'Analyze'}
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
 
-        {error && <Typography color="error" style={{ marginTop: '1rem' }}>{error}</Typography>}
+        {error && (
+          <Card sx={{ mb: 4, bgcolor: 'error.main', color: 'white' }}>
+            <CardContent>
+              <Typography variant="body1">{error}</Typography>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Results Table */}
         {results.length > 0 && (
-          <Box marginTop="2rem">
-            <Typography variant="h5" gutterBottom>Analysis Results</Typography>
-            <Typography variant="body2" color="textSecondary" gutterBottom>Click on a row to view historical charts.</Typography>
-            <TableContainer component={Paper} style={{ marginTop: '1rem' }}>
-              <Table sx={{ minWidth: 650 }} aria-label="analysis results table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Ticker</TableCell>
-                    <TableCell align="right">Close</TableCell>
-                    <TableCell align="right">RSI</TableCell>
-                    <TableCell align="right">MACD</TableCell>
-                    <TableCell align="right">MACD Signal</TableCell>
-                    <TableCell align="right">MA20</TableCell>
-                    <TableCell align="right">MA50</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {results.map((row) => (
-                    <TableRow key={row.ticker} hover onClick={() => handleRowClick(row)} selected={selectedStock?.ticker === row.ticker} style={{ cursor: 'pointer' }} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                      <TableCell component="th" scope="row">{row.ticker}</TableCell>
-                      <TableCell align="right">{row.Close?.toFixed(2)}</TableCell>
-                      <TableCell align="right">{row.RSI?.toFixed(2)}</TableCell>
-                      <TableCell align="right">{row.MACD?.toFixed(2)}</TableCell>
-                      <TableCell align="right">{row.MACD_Signal?.toFixed(2)}</TableCell>
-                      <TableCell align="right">{row.MA20?.toFixed(2)}</TableCell>
-                      <TableCell align="right">{row.MA50?.toFixed(2)}</TableCell>
+          <Card sx={{ mb: 4 }}>
+            <CardContent sx={{ p: 4 }}>
+              <Box sx={{ mb: 3 }}>
+                <Typography variant="h5" gutterBottom sx={{ mb: 1 }}>
+                  Analysis Results
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Click on a row to view historical charts.
+                </Typography>
+              </Box>
+              <TableContainer>
+                <Table sx={{ minWidth: 650 }} aria-label="analysis results table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ fontWeight: 600, fontSize: '0.875rem' }}>Ticker</TableCell>
+                      <TableCell align="right" sx={{ fontWeight: 600, fontSize: '0.875rem' }}>Close</TableCell>
+                      <TableCell align="right" sx={{ fontWeight: 600, fontSize: '0.875rem' }}>RSI</TableCell>
+                      <TableCell align="right" sx={{ fontWeight: 600, fontSize: '0.875rem' }}>MACD</TableCell>
+                      <TableCell align="right" sx={{ fontWeight: 600, fontSize: '0.875rem' }}>MACD Signal</TableCell>
+                      <TableCell align="right" sx={{ fontWeight: 600, fontSize: '0.875rem' }}>MA20</TableCell>
+                      <TableCell align="right" sx={{ fontWeight: 600, fontSize: '0.875rem' }}>MA50</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Box>
+                  </TableHead>
+                  <TableBody>
+                    {results.map((row) => (
+                      <TableRow
+                        key={row.ticker}
+                        hover
+                        onClick={() => handleRowClick(row)}
+                        selected={selectedStock?.ticker === row.ticker}
+                        sx={{
+                          cursor: 'pointer',
+                          '&:hover': {
+                            backgroundColor: '#F2F2F7',
+                          },
+                          '&.Mui-selected': {
+                            backgroundColor: '#E3F2FD',
+                            '&:hover': {
+                              backgroundColor: '#BBDEFB',
+                            },
+                          },
+                        }}
+                      >
+                        <TableCell component="th" scope="row">
+                          <Chip
+                            label={row.ticker}
+                            size="small"
+                            sx={{
+                              fontWeight: 600,
+                              bgcolor: selectedStock?.ticker === row.ticker ? 'primary.main' : 'grey.100',
+                              color: selectedStock?.ticker === row.ticker ? 'white' : 'text.primary',
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell align="right" sx={{ fontWeight: 500 }}>${row.Close?.toFixed(2)}</TableCell>
+                        <TableCell align="right">{row.RSI?.toFixed(2)}</TableCell>
+                        <TableCell align="right">{row.MACD?.toFixed(2)}</TableCell>
+                        <TableCell align="right">{row.MACD_Signal?.toFixed(2)}</TableCell>
+                        <TableCell align="right">${row.MA20?.toFixed(2)}</TableCell>
+                        <TableCell align="right">${row.MA50?.toFixed(2)}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </CardContent>
+          </Card>
         )}
 
         {/* Chart Section */}
         {selectedStock && (
-          <Box marginTop="4rem">
-            <Typography variant="h5" gutterBottom>Historical Charts for {selectedStock.ticker}</Typography>
-            {chartLoading && <Box textAlign="center" padding="2rem"><CircularProgress /></Box>}
-            {chartError && <Typography color="error">{chartError}</Typography>}
-            {chartData.length > 0 && (
-              <Fragment>
-                <Typography variant="h6" style={{ marginTop: '2.5rem' }}>Price & Moving Averages</Typography>
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={chartData} syncId="stock_charts" margin={chartMargin}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="time" interval={"preserveStartEnd"} />
-                    <YAxis domain={['dataMin - dataMin * 0.05', 'dataMax + dataMax * 0.05']} tickFormatter={currencyFormatter} />
-                    <Tooltip formatter={currencyFormatter} />
-                    <Legend />
-                    <Line type="monotone" dataKey="Close" stroke="#8884d8" name="Price" dot={false} />
-                    <Line type="monotone" dataKey="MA20" stroke="#82ca9d" name="MA 20" dot={false} />
-                    <Line type="monotone" dataKey="MA50" stroke="#ffc658" name="MA 50" dot={false} />
-                  </LineChart>
-                </ResponsiveContainer>
+          <Card sx={{ mb: 4 }}>
+            <CardContent sx={{ p: 4 }}>
+              <Typography variant="h5" gutterBottom sx={{ mb: 1 }}>
+                Historical Charts for {selectedStock.ticker}
+              </Typography>
+              {chartLoading && (
+                <Box textAlign="center" py={6}>
+                  <CircularProgress size={40} />
+                </Box>
+              )}
+              {chartError && (
+                <Card sx={{ bgcolor: 'error.main', color: 'white', mb: 2 }}>
+                  <CardContent>
+                    <Typography variant="body1">{chartError}</Typography>
+                  </CardContent>
+                </Card>
+              )}
+              {chartData.length > 0 && (
+                <Box>
+                  <Box sx={{ mt: 4 }}>
+                    <Typography variant="h6" gutterBottom sx={{ mb: 2, color: 'text.primary' }}>
+                      Price & Moving Averages
+                    </Typography>
+                    <Box sx={{ bgcolor: '#FAFAFA', borderRadius: 2, p: 2 }}>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <LineChart data={chartData} syncId="stock_charts" margin={chartMargin}>
+                          <CartesianGrid strokeDasharray="2 2" stroke="#E0E0E0" />
+                          <XAxis dataKey="time" interval={"preserveStartEnd"} tick={{ fontSize: 12 }} />
+                          <YAxis domain={['dataMin - dataMin * 0.05', 'dataMax + dataMax * 0.05']} tickFormatter={currencyFormatter} tick={{ fontSize: 12 }} />
+                          <Tooltip formatter={currencyFormatter} contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #D1D1D6', borderRadius: 8 }} />
+                          <Legend />
+                          <Line type="monotone" dataKey="Close" stroke="#007AFF" name="Price" dot={false} strokeWidth={2} />
+                          <Line type="monotone" dataKey="MA20" stroke="#34C759" name="MA 20" dot={false} strokeWidth={2} />
+                          <Line type="monotone" dataKey="MA50" stroke="#FF9500" name="MA 50" dot={false} strokeWidth={2} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </Box>
+                  </Box>
 
-                <Typography variant="h6" style={{ marginTop: '2.5rem' }}>RSI (Relative Strength Index)</Typography>
-                <ResponsiveContainer width="100%" height={150}>
-                  <LineChart data={chartData} syncId="stock_charts" margin={chartMargin}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="time" interval={"preserveStartEnd"} />
-                    <YAxis domain={[0, 100]} />
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey="RSI" stroke="#8884d8" activeDot={{ r: 8 }} dot={false} />
-                    <Line type="monotone" dataKey={() => 70} stroke="#ff0000" strokeDasharray="5 5" name="Overbought" dot={false} />
-                    <Line type="monotone" dataKey={() => 30} stroke="#00ff00" strokeDasharray="5 5" name="Oversold" dot={false} />
-                  </LineChart>
-                </ResponsiveContainer>
+                  <Box sx={{ mt: 4 }}>
+                    <Typography variant="h6" gutterBottom sx={{ mb: 2, color: 'text.primary' }}>
+                      RSI (Relative Strength Index)
+                    </Typography>
+                    <Box sx={{ bgcolor: '#FAFAFA', borderRadius: 2, p: 2 }}>
+                      <ResponsiveContainer width="100%" height={150}>
+                        <LineChart data={chartData} syncId="stock_charts" margin={chartMargin}>
+                          <CartesianGrid strokeDasharray="2 2" stroke="#E0E0E0" />
+                          <XAxis dataKey="time" interval={"preserveStartEnd"} tick={{ fontSize: 12 }} />
+                          <YAxis domain={[0, 100]} tick={{ fontSize: 12 }} />
+                          <Tooltip contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #D1D1D6', borderRadius: 8 }} />
+                          <Legend />
+                          <Line type="monotone" dataKey="RSI" stroke="#007AFF" activeDot={{ r: 6 }} dot={false} strokeWidth={2} />
+                          <Line type="monotone" dataKey={() => 70} stroke="#FF3B30" strokeDasharray="5 5" name="Overbought" dot={false} strokeWidth={1} />
+                          <Line type="monotone" dataKey={() => 30} stroke="#34C759" strokeDasharray="5 5" name="Oversold" dot={false} strokeWidth={1} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </Box>
+                  </Box>
 
-                <Typography variant="h6" style={{ marginTop: '2.5rem' }}>MACD (Moving Average Convergence Divergence)</Typography>
-                <ResponsiveContainer width="100%" height={150}>
-                  <LineChart data={chartData} syncId="stock_charts" margin={chartMargin}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="time" interval={"preserveStartEnd"} />
-                    <YAxis tickFormatter={decimalFormatter} />
-                    <Tooltip formatter={decimalFormatter} />
-                    <Legend />
-                    <Line type="monotone" dataKey="MACD" stroke="#82ca9d" dot={false} />
-                    <Line type="monotone" dataKey="MACD_Signal" stroke="#ffc658" name="Signal" dot={false} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </Fragment>
-            )}
-          </Box>
+                  <Box sx={{ mt: 4 }}>
+                    <Typography variant="h6" gutterBottom sx={{ mb: 2, color: 'text.primary' }}>
+                      MACD (Moving Average Convergence Divergence)
+                    </Typography>
+                    <Box sx={{ bgcolor: '#FAFAFA', borderRadius: 2, p: 2 }}>
+                      <ResponsiveContainer width="100%" height={150}>
+                        <LineChart data={chartData} syncId="stock_charts" margin={chartMargin}>
+                          <CartesianGrid strokeDasharray="2 2" stroke="#E0E0E0" />
+                          <XAxis dataKey="time" interval={"preserveStartEnd"} tick={{ fontSize: 12 }} />
+                          <YAxis tickFormatter={decimalFormatter} tick={{ fontSize: 12 }} />
+                          <Tooltip formatter={decimalFormatter} contentStyle={{ backgroundColor: '#FFFFFF', border: '1px solid #D1D1D6', borderRadius: 8 }} />
+                          <Legend />
+                          <Line type="monotone" dataKey="MACD" stroke="#34C759" dot={false} strokeWidth={2} />
+                          <Line type="monotone" dataKey="MACD_Signal" stroke="#FF9500" name="Signal" dot={false} strokeWidth={2} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </Box>
+                  </Box>
+                </Box>
+              )}
+            </CardContent>
+          </Card>
         )}
 
         {/* Timeout Dialog */}
-        <Dialog open={showTimeoutDialog} onClose={handleCancelAnalysis}>
-          <DialogTitle>Backend Server Sleeping</DialogTitle>
+        <Dialog
+          open={showTimeoutDialog}
+          onClose={handleCancelAnalysis}
+          PaperProps={{
+            sx: {
+              borderRadius: 3,
+              minWidth: 400,
+            },
+          }}
+        >
+          <DialogTitle sx={{ pb: 1, fontWeight: 600 }}>
+            Backend Server Sleeping
+          </DialogTitle>
           <DialogContent>
-            <DialogContentText>
+            <DialogContentText sx={{ mb: 2 }}>
               The backend server on Render.com appears to be sleeping and taking longer than expected to respond.
               This usually happens when the server hasn't been used for a while.
-              <br /><br />
+            </DialogContentText>
+            <DialogContentText sx={{ mb: 2 }}>
               You can either wait for the server to wake up (this may take 30-60 seconds), or use cached demo data for the following stocks:
-              <br /><br />
-              <strong>Available cached stocks:</strong> {pendingTickers.filter(ticker => CACHE_DATA[ticker]).join(', ')}
+            </DialogContentText>
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>
+                Available cached stocks:
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
+                {pendingTickers.filter(ticker => CACHE_DATA[ticker]).map(ticker => (
+                  <Chip key={ticker} label={ticker} size="small" color="primary" />
+                ))}
+              </Box>
               {pendingTickers.some(ticker => !CACHE_DATA[ticker]) && (
                 <>
-                  <br />
-                  <strong>Not available in cache:</strong> {pendingTickers.filter(ticker => !CACHE_DATA[ticker]).join(', ')}
+                  <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>
+                    Not available in cache:
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                    {pendingTickers.filter(ticker => !CACHE_DATA[ticker]).map(ticker => (
+                      <Chip key={ticker} label={ticker} size="small" color="default" />
+                    ))}
+                  </Box>
                 </>
               )}
-            </DialogContentText>
+            </Box>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCancelAnalysis} color="secondary">
+          <DialogActions sx={{ px: 3, pb: 3 }}>
+            <Button onClick={handleCancelAnalysis} color="secondary" sx={{ mr: 1 }}>
               Cancel
             </Button>
-            <Button onClick={handleWaitForBackend} color="primary">
+            <Button onClick={handleWaitForBackend} color="primary" sx={{ mr: 1 }}>
               Wait for Server
             </Button>
             <Button
@@ -335,7 +601,7 @@ function App() {
           </DialogActions>
         </Dialog>
       </Container>
-    </Fragment>
+    </ThemeProvider>
   );
 }
 

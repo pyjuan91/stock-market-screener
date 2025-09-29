@@ -2,8 +2,9 @@
 
 A full-stack web app for analyzing stock market data with technical indicators and interactive charts. Built with Python FastAPI backend and React frontend, featuring a clean Apple-inspired design.
 
+<img width="1920" height="2300" alt="screenshot-rocks" src="https://github.com/user-attachments/assets/33bdfdcb-9da0-498f-a347-f51194629e16" />
 
-<img width="2956" height="3774" alt="stock-frontend-1yd4 onrender com_" src="https://github.com/user-attachments/assets/0a8e70cf-6be4-4f0d-9a69-bc9095b61afc" />
+
 
 
 ## What It Does

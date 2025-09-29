@@ -2,10 +2,9 @@
 
 A full-stack web app for analyzing stock market data with technical indicators and interactive charts. Built with Python FastAPI backend and React frontend, featuring a clean Apple-inspired design.
 
-## Screenshots
 
-<!-- Add your screenshots here -->
-*Screenshots will be added soon*
+<img width="2956" height="3774" alt="stock-frontend-1yd4 onrender com_" src="https://github.com/user-attachments/assets/0a8e70cf-6be4-4f0d-9a69-bc9095b61afc" />
+
 
 ## What It Does
 
@@ -34,7 +33,7 @@ A full-stack web app for analyzing stock market data with technical indicators a
 
 ## Live Demo
 
-The app is deployed on Render.com: [Your Render URL Here]
+The app is deployed on Render.com: https://stock-frontend-1yd4.onrender.com/
 
 *Note: If it's the first request in a while, the backend might take 30-60 seconds to wake up. That's just how Render's free tier works. The app handles this with cached data so demos still look smooth.*
 

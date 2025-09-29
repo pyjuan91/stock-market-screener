@@ -201,6 +201,78 @@ const CACHE_DATA = {
   'CRM': { ticker: 'CRM', Close: 284.76, RSI: 61.23, MACD: 4.56, MACD_Signal: 4.12, MA20: 282.89, MA50: 278.45 }
 };
 
+// --- Cache Chart Data for Demo ---
+const CACHE_CHART_DATA = {
+  'AAPL': [
+    { time: '2024-01-02', Close: 185.64, MA20: 180.45, MA50: 175.23, RSI: 58.32, MACD: 0.87, MACD_Signal: 0.92 },
+    { time: '2024-01-03', Close: 184.25, MA20: 180.67, MA50: 175.45, RSI: 56.78, MACD: 0.78, MACD_Signal: 0.89 },
+    { time: '2024-01-04', Close: 181.91, MA20: 180.89, MA50: 175.67, RSI: 54.23, MACD: 0.65, MACD_Signal: 0.84 },
+    { time: '2024-01-05', Close: 181.18, MA20: 181.12, MA50: 175.89, RSI: 52.67, MACD: 0.52, MACD_Signal: 0.78 },
+    { time: '2024-01-08', Close: 185.56, MA20: 181.34, MA50: 176.12, RSI: 57.45, MACD: 0.73, MACD_Signal: 0.74 },
+    { time: '2024-01-09', Close: 185.14, MA20: 181.56, MA50: 176.34, RSI: 58.91, MACD: 0.89, MACD_Signal: 0.76 },
+    { time: '2024-01-10', Close: 181.91, MA20: 181.78, MA50: 176.56, RSI: 55.34, MACD: 0.67, MACD_Signal: 0.78 },
+    { time: '2024-01-11', Close: 182.31, MA20: 182.01, MA50: 176.78, RSI: 56.78, MACD: 0.78, MACD_Signal: 0.79 },
+    { time: '2024-01-12', Close: 185.92, MA20: 182.23, MA50: 177.01, RSI: 61.23, MACD: 1.12, MACD_Signal: 0.83 },
+    { time: '2024-01-16', Close: 184.01, MA20: 182.45, MA50: 177.23, RSI: 59.67, MACD: 1.01, MACD_Signal: 0.87 },
+    { time: '2024-01-17', Close: 182.68, MA20: 182.67, MA50: 177.45, RSI: 57.89, MACD: 0.89, MACD_Signal: 0.91 },
+    { time: '2024-01-18', Close: 185.04, MA20: 182.89, MA50: 177.67, RSI: 62.45, MACD: 1.23, MACD_Signal: 0.96 },
+    { time: '2024-01-19', Close: 183.17, MA20: 183.12, MA50: 177.89, RSI: 59.34, MACD: 1.01, MACD_Signal: 1.01 },
+    { time: '2024-01-22', Close: 195.89, MA20: 183.34, MA50: 178.12, RSI: 68.23, MACD: 1.67, MACD_Signal: 1.08 },
+    { time: '2024-01-23', Close: 178.42, MA20: 175.67, MA50: 172.34, RSI: 65.32, MACD: 1.23, MACD_Signal: 1.15 }
+  ],
+  'GOOG': [
+    { time: '2024-01-02', Close: 2698.45, MA20: 2705.23, MA50: 2695.67, RSI: 52.34, MACD: 12.45, MACD_Signal: 13.67 },
+    { time: '2024-01-03', Close: 2712.78, MA20: 2708.67, MA50: 2697.89, RSI: 55.67, MACD: 14.23, MACD_Signal: 13.89 },
+    { time: '2024-01-04', Close: 2725.34, MA20: 2712.45, MA50: 2700.12, RSI: 58.91, MACD: 16.78, MACD_Signal: 14.23 },
+    { time: '2024-01-05', Close: 2709.67, MA20: 2715.89, MA50: 2702.34, RSI: 56.23, MACD: 15.34, MACD_Signal: 14.56 },
+    { time: '2024-01-08', Close: 2734.56, MA20: 2719.12, MA50: 2704.67, RSI: 61.45, MACD: 18.67, MACD_Signal: 15.01 },
+    { time: '2024-01-09', Close: 2728.91, MA20: 2722.34, MA50: 2706.89, RSI: 59.78, MACD: 17.23, MACD_Signal: 15.45 },
+    { time: '2024-01-10', Close: 2715.67, MA20: 2725.67, MA50: 2709.12, RSI: 57.34, MACD: 15.78, MACD_Signal: 15.89 },
+    { time: '2024-01-11', Close: 2741.23, MA20: 2728.89, MA50: 2711.34, RSI: 62.67, MACD: 19.45, MACD_Signal: 16.34 },
+    { time: '2024-01-12', Close: 2756.78, MA20: 2732.12, MA50: 2713.67, RSI: 65.89, MACD: 21.23, MACD_Signal: 16.89 },
+    { time: '2024-01-16', Close: 2734.45, MA20: 2735.34, MA50: 2715.89, RSI: 60.23, MACD: 18.67, MACD_Signal: 17.45 },
+    { time: '2024-01-17', Close: 2729.67, MA20: 2738.67, MA50: 2718.12, RSI: 58.45, MACD: 17.34, MACD_Signal: 17.89 },
+    { time: '2024-01-18', Close: 2748.91, MA20: 2741.89, MA50: 2720.34, RSI: 63.78, MACD: 20.67, MACD_Signal: 18.34 },
+    { time: '2024-01-19', Close: 2731.23, MA20: 2744.12, MA50: 2722.67, RSI: 59.67, MACD: 18.23, MACD_Signal: 18.78 },
+    { time: '2024-01-22', Close: 2754.56, MA20: 2746.34, MA50: 2724.89, RSI: 64.34, MACD: 21.45, MACD_Signal: 19.23 },
+    { time: '2024-01-23', Close: 2742.19, MA20: 2735.89, MA50: 2720.45, RSI: 58.47, MACD: 15.67, MACD_Signal: 14.23 }
+  ],
+  'GOOGL': [
+    { time: '2024-01-02', Close: 2698.45, MA20: 2705.23, MA50: 2695.67, RSI: 52.34, MACD: 12.45, MACD_Signal: 13.67 },
+    { time: '2024-01-03', Close: 2712.78, MA20: 2708.67, MA50: 2697.89, RSI: 55.67, MACD: 14.23, MACD_Signal: 13.89 },
+    { time: '2024-01-04', Close: 2725.34, MA20: 2712.45, MA50: 2700.12, RSI: 58.91, MACD: 16.78, MACD_Signal: 14.23 },
+    { time: '2024-01-05', Close: 2709.67, MA20: 2715.89, MA50: 2702.34, RSI: 56.23, MACD: 15.34, MACD_Signal: 14.56 },
+    { time: '2024-01-08', Close: 2734.56, MA20: 2719.12, MA50: 2704.67, RSI: 61.45, MACD: 18.67, MACD_Signal: 15.01 },
+    { time: '2024-01-09', Close: 2728.91, MA20: 2722.34, MA50: 2706.89, RSI: 59.78, MACD: 17.23, MACD_Signal: 15.45 },
+    { time: '2024-01-10', Close: 2715.67, MA20: 2725.67, MA50: 2709.12, RSI: 57.34, MACD: 15.78, MACD_Signal: 15.89 },
+    { time: '2024-01-11', Close: 2741.23, MA20: 2728.89, MA50: 2711.34, RSI: 62.67, MACD: 19.45, MACD_Signal: 16.34 },
+    { time: '2024-01-12', Close: 2756.78, MA20: 2732.12, MA50: 2713.67, RSI: 65.89, MACD: 21.23, MACD_Signal: 16.89 },
+    { time: '2024-01-16', Close: 2734.45, MA20: 2735.34, MA50: 2715.89, RSI: 60.23, MACD: 18.67, MACD_Signal: 17.45 },
+    { time: '2024-01-17', Close: 2729.67, MA20: 2738.67, MA50: 2718.12, RSI: 58.45, MACD: 17.34, MACD_Signal: 17.89 },
+    { time: '2024-01-18', Close: 2748.91, MA20: 2741.89, MA50: 2720.34, RSI: 63.78, MACD: 20.67, MACD_Signal: 18.34 },
+    { time: '2024-01-19', Close: 2731.23, MA20: 2744.12, MA50: 2722.67, RSI: 59.67, MACD: 18.23, MACD_Signal: 18.78 },
+    { time: '2024-01-22', Close: 2754.56, MA20: 2746.34, MA50: 2724.89, RSI: 64.34, MACD: 21.45, MACD_Signal: 19.23 },
+    { time: '2024-01-23', Close: 2742.19, MA20: 2735.89, MA50: 2720.45, RSI: 58.47, MACD: 15.67, MACD_Signal: 14.23 }
+  ],
+  'MSFT': [
+    { time: '2024-01-02', Close: 398.23, MA20: 402.45, MA50: 395.67, RSI: 55.34, MACD: 2.67, MACD_Signal: 2.89 },
+    { time: '2024-01-03', Close: 405.67, MA20: 404.89, MA50: 397.23, RSI: 58.91, MACD: 3.23, MACD_Signal: 2.97 },
+    { time: '2024-01-04', Close: 411.45, MA20: 407.12, MA50: 398.78, RSI: 62.45, MACD: 3.78, MACD_Signal: 3.12 },
+    { time: '2024-01-05', Close: 409.78, MA20: 409.34, MA50: 400.34, RSI: 61.23, MACD: 3.56, MACD_Signal: 3.23 },
+    { time: '2024-01-08', Close: 415.23, MA20: 411.67, MA50: 401.89, RSI: 64.67, MACD: 4.12, MACD_Signal: 3.34 },
+    { time: '2024-01-09', Close: 412.89, MA20: 413.89, MA50: 403.45, RSI: 63.45, MACD: 3.89, MACD_Signal: 3.45 },
+    { time: '2024-01-10', Close: 408.67, MA20: 415.12, MA50: 405.01, RSI: 60.78, MACD: 3.45, MACD_Signal: 3.56 },
+    { time: '2024-01-11', Close: 416.34, MA20: 416.34, MA50: 406.67, RSI: 65.23, MACD: 4.23, MACD_Signal: 3.67 },
+    { time: '2024-01-12', Close: 418.91, MA20: 417.67, MA50: 408.23, RSI: 66.78, MACD: 4.56, MACD_Signal: 3.78 },
+    { time: '2024-01-16', Close: 414.56, MA20: 418.89, MA50: 409.78, RSI: 63.34, MACD: 4.01, MACD_Signal: 3.89 },
+    { time: '2024-01-17', Close: 411.23, MA20: 419.12, MA50: 411.34, RSI: 61.67, MACD: 3.67, MACD_Signal: 3.98 },
+    { time: '2024-01-18', Close: 417.78, MA20: 419.34, MA50: 412.89, RSI: 64.89, MACD: 4.34, MACD_Signal: 4.01 },
+    { time: '2024-01-19', Close: 413.45, MA20: 419.67, MA50: 414.45, RSI: 62.23, MACD: 3.78, MACD_Signal: 4.05 },
+    { time: '2024-01-22', Close: 420.12, MA20: 419.89, MA50: 416.01, RSI: 66.45, MACD: 4.67, MACD_Signal: 4.12 },
+    { time: '2024-01-23', Close: 412.83, MA20: 410.56, MA50: 405.78, RSI: 62.15, MACD: 3.45, MACD_Signal: 3.12 }
+  ]
+};
+
 // --- Helper Functions for Chart Formatting ---
 const currencyFormatter = (value) => `${value.toFixed(2)}`;
 const decimalFormatter = (value) => value.toFixed(2);
@@ -304,11 +376,27 @@ function App() {
       setChartData([]);
 
       try {
-        const response = await axios.get(`${API_HISTORY_URL}/${selectedStock.ticker}`);
+        // Create a timeout promise for chart data too
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('timeout')), 3000)
+        );
+
+        const apiPromise = axios.get(`${API_HISTORY_URL}/${selectedStock.ticker}`);
+        const response = await Promise.race([apiPromise, timeoutPromise]);
+
         setChartData(response.data);
       } catch (err) {
-        setChartError(`Failed to fetch historical data for ${selectedStock.ticker}.`);
-        console.error(err);
+        if (err.message === 'timeout' || err.code === 'ECONNABORTED') {
+          // Backend is sleeping, check if we have cached chart data
+          if (CACHE_CHART_DATA[selectedStock.ticker]) {
+            setChartData(CACHE_CHART_DATA[selectedStock.ticker]);
+          } else {
+            setChartError(`Backend is sleeping and no cached chart data available for ${selectedStock.ticker}.`);
+          }
+        } else {
+          setChartError(`Failed to fetch historical data for ${selectedStock.ticker}.`);
+          console.error(err);
+        }
       } finally {
         setChartLoading(false);
       }

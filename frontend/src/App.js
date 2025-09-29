@@ -17,6 +17,11 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from '@mui/material';
 import {
   LineChart,
@@ -37,6 +42,20 @@ const API_HISTORY_URL = `${API_BASE_URL}/api/history`;
 
 console.log('API_BASE_URL:', API_BASE_URL); // Debug log for deployment
 
+// --- Cache Data for Demo ---
+const CACHE_DATA = {
+  'AAPL': { ticker: 'AAPL', Close: 178.42, RSI: 65.32, MACD: 1.23, MACD_Signal: 1.15, MA20: 175.67, MA50: 172.34 },
+  'GOOG': { ticker: 'GOOG', Close: 2742.19, RSI: 58.47, MACD: 15.67, MACD_Signal: 14.23, MA20: 2735.89, MA50: 2720.45 },
+  'GOOGL': { ticker: 'GOOGL', Close: 2742.19, RSI: 58.47, MACD: 15.67, MACD_Signal: 14.23, MA20: 2735.89, MA50: 2720.45 },
+  'MSFT': { ticker: 'MSFT', Close: 412.83, RSI: 62.15, MACD: 3.45, MACD_Signal: 3.12, MA20: 410.56, MA50: 405.78 },
+  'AMZN': { ticker: 'AMZN', Close: 3312.68, RSI: 55.89, MACD: 25.34, MACD_Signal: 23.67, MA20: 3305.21, MA50: 3290.87 },
+  'TSLA': { ticker: 'TSLA', Close: 248.50, RSI: 71.23, MACD: 8.76, MACD_Signal: 7.89, MA20: 245.67, MA50: 238.92 },
+  'META': { ticker: 'META', Close: 484.52, RSI: 59.67, MACD: 12.45, MACD_Signal: 11.78, MA20: 481.34, MA50: 475.23 },
+  'NVDA': { ticker: 'NVDA', Close: 875.28, RSI: 68.94, MACD: 18.92, MACD_Signal: 17.56, MA20: 870.45, MA50: 860.12 },
+  'NFLX': { ticker: 'NFLX', Close: 486.81, RSI: 52.36, MACD: 6.78, MACD_Signal: 6.45, MA20: 485.67, MA50: 482.34 },
+  'CRM': { ticker: 'CRM', Close: 284.76, RSI: 61.23, MACD: 4.56, MACD_Signal: 4.12, MA20: 282.89, MA50: 278.45 }
+};
+
 // --- Helper Functions for Chart Formatting ---
 const currencyFormatter = (value) => `${value.toFixed(2)}`;
 const decimalFormatter = (value) => value.toFixed(2);
@@ -55,6 +74,10 @@ function App() {
   const [chartLoading, setChartLoading] = useState(false);
   const [chartError, setChartError] = useState('');
 
+  // State for timeout dialog
+  const [showTimeoutDialog, setShowTimeoutDialog] = useState(false);
+  const [pendingTickers, setPendingTickers] = useState([]);
+
   // --- Handlers ---
   const handleAnalysisClick = async () => {
     setLoading(true);
@@ -63,7 +86,7 @@ function App() {
     setSelectedStock(null);
     setChartData([]);
 
-    const tickerList = tickers.split(',').map(t => t.trim()).filter(t => t);
+    const tickerList = tickers.split(',').map(t => t.trim().toUpperCase()).filter(t => t);
     if (tickerList.length === 0) {
       setError('Please enter at least one ticker symbol.');
       setLoading(false);
@@ -71,14 +94,50 @@ function App() {
     }
 
     try {
-      const response = await axios.post(API_SCAN_URL, { tickers: tickerList });
+      // Create a timeout promise
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('timeout')), 3000)
+      );
+
+      // Race between API call and timeout
+      const apiPromise = axios.post(API_SCAN_URL, { tickers: tickerList });
+      const response = await Promise.race([apiPromise, timeoutPromise]);
+
       setResults(response.data);
     } catch (err) {
-      setError('Failed to fetch data from the API. Please ensure the backend server is running.');
-      console.error(err);
+      if (err.message === 'timeout') {
+        // Backend is likely sleeping on Render.com
+        setPendingTickers(tickerList);
+        setShowTimeoutDialog(true);
+      } else {
+        setError('Failed to fetch data from the API. Please ensure the backend server is running.');
+        console.error(err);
+      }
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleUseCacheData = () => {
+    const cacheResults = pendingTickers
+      .filter(ticker => CACHE_DATA[ticker])
+      .map(ticker => CACHE_DATA[ticker]);
+
+    setResults(cacheResults);
+    setShowTimeoutDialog(false);
+    setPendingTickers([]);
+  };
+
+  const handleWaitForBackend = () => {
+    setShowTimeoutDialog(false);
+    setPendingTickers([]);
+    // Retry the analysis
+    handleAnalysisClick();
+  };
+
+  const handleCancelAnalysis = () => {
+    setShowTimeoutDialog(false);
+    setPendingTickers([]);
   };
 
   const handleRowClick = (row) => {
@@ -238,6 +297,43 @@ function App() {
             )}
           </Box>
         )}
+
+        {/* Timeout Dialog */}
+        <Dialog open={showTimeoutDialog} onClose={handleCancelAnalysis}>
+          <DialogTitle>Backend Server Sleeping</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              The backend server on Render.com appears to be sleeping and taking longer than expected to respond.
+              This usually happens when the server hasn't been used for a while.
+              <br /><br />
+              You can either wait for the server to wake up (this may take 30-60 seconds), or use cached demo data for the following stocks:
+              <br /><br />
+              <strong>Available cached stocks:</strong> {pendingTickers.filter(ticker => CACHE_DATA[ticker]).join(', ')}
+              {pendingTickers.some(ticker => !CACHE_DATA[ticker]) && (
+                <>
+                  <br />
+                  <strong>Not available in cache:</strong> {pendingTickers.filter(ticker => !CACHE_DATA[ticker]).join(', ')}
+                </>
+              )}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCancelAnalysis} color="secondary">
+              Cancel
+            </Button>
+            <Button onClick={handleWaitForBackend} color="primary">
+              Wait for Server
+            </Button>
+            <Button
+              onClick={handleUseCacheData}
+              color="primary"
+              variant="contained"
+              disabled={!pendingTickers.some(ticker => CACHE_DATA[ticker])}
+            >
+              Use Cached Data
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Container>
     </Fragment>
   );

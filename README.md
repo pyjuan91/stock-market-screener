@@ -77,11 +77,11 @@ The app is deployed on Render.com: https://stock-frontend-1yd4.onrender.com/
 
 ### Backend Setup
 
-1. Clone and install dependencies:
+1. Clone and navigate to backend:
 
 ```bash
 git clone https://github.com/pyjuan91/stock-market-screener.git
-cd stock-market-screener
+cd stock-market-screener/backend
 poetry install
 ```
 
@@ -121,6 +121,7 @@ Frontend will be at `http://localhost:3000`
 
 **Backend:**
 ```bash
+cd backend
 poetry build
 ```
 
@@ -137,6 +138,7 @@ This thing is set up to work well with Render.com:
 **Backend deployment:**
 - Connect your GitHub repo to Render
 - Choose "Web Service"
+- Root directory: `backend`
 - Build command: `poetry install`
 - Start command: `python api.py`
 
@@ -240,19 +242,22 @@ curl -X POST http://localhost:8000/api/backtest/compare \
 
 ```
 stock-market-screener/
-├── api.py                      # FastAPI application
-├── stock_screener/             # Stock analysis module
-│   ├── screener.py            # Main analysis orchestrator
-│   ├── data_fetcher.py        # Yahoo Finance data
-│   └── indicator_calculator.py # Technical indicators
-├── ml_models/                  # ML/AI models
-│   └── sentiment_analyzer.py  # FinBERT sentiment analysis
-├── data_sources/               # External data sources
-│   └── news_fetcher.py        # News API integration
-├── backtesting/                # Backtesting engine
-│   ├── strategy_engine.py     # Core backtesting logic
-│   ├── performance_metrics.py # Sharpe, drawdown, etc.
-│   └── advanced_strategies.py # ML-enhanced strategies
+├── backend/                    # Python backend
+│   ├── api.py                 # FastAPI application
+│   ├── stock_screener/        # Stock analysis module
+│   │   ├── screener.py       # Main analysis orchestrator
+│   │   ├── data_fetcher.py   # Yahoo Finance data
+│   │   └── indicator_calculator.py # Technical indicators
+│   ├── ml_models/             # ML/AI models
+│   │   └── sentiment_analyzer.py  # FinBERT sentiment analysis
+│   ├── data_sources/          # External data sources
+│   │   └── news_fetcher.py   # News API integration
+│   ├── backtesting/           # Backtesting engine
+│   │   ├── strategy_engine.py     # Core backtesting logic
+│   │   ├── performance_metrics.py # Sharpe, drawdown, etc.
+│   │   └── advanced_strategies.py # ML-enhanced strategies
+│   ├── pyproject.toml         # Python dependencies
+│   └── .env.example           # Environment variables template
 └── frontend/                   # React application
     └── src/
         └── App.js             # Main UI component

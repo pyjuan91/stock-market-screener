@@ -236,17 +236,6 @@ curl -X POST http://localhost:8000/api/backtest/compare \
   -d '{"ticker":"AAPL","strategies":["rsi","macd","rsi_sentiment"],"period":"1y"}'
 ```
 
-## Key Features for Resume
-
-This project demonstrates:
-
-✅ **ML Engineering:** Implemented FinBERT-based sentiment analysis processing 1000+ daily news articles from multiple sources
-✅ **Quantitative Finance:** Built backtesting engine with 7 trading strategies, calculating Sharpe ratio, max drawdown, and risk-adjusted returns
-✅ **Full-Stack Development:** FastAPI backend + React frontend with real-time data visualization
-✅ **API Design:** RESTful API with 10+ endpoints, comprehensive documentation, CORS, error handling
-✅ **Data Pipeline:** Multi-source news aggregation, technical indicator calculation, historical data processing
-✅ **Performance Engineering:** Singleton pattern for model loading, efficient data processing with pandas/NumPy
-
 ## Project Structure
 
 ```
